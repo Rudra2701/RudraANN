@@ -10,23 +10,17 @@ class Layer:
 
         for i in range(outputs):
             self.weights.append(x)
-        self.bias=makearr(outputs,lower,upper)
+        self.bias=makearr(outputs,lower,upper) #weight[output][input]
     def feedforward(self,inputs):
         o=[]
         for i in range(self.outputs):
              o.append(Neuron.neuron(inputs,self.weights[i],self.bias[i]))
         return o
-    def weight(self,w,weight):
-        self.weights[w]=weight
-    def bias(self,b,bias):
-        self.bias[b]=bias
-    def get_weights(self,w):
-        return self.weights[w]
-    def get_bias(self,b):
-        return self.bias[b]
-    def change_weights(self,w,weight):
-        for i in range(len(weight)):
-            self.weights[w][i]+=weight[i]
-    def change_bias(self,bias):
-        for i in range(len(bias)):
-            self.bias[i]+=bias[i]
+    def weight(self,weight):
+        self.weights=weight
+    def bias(self,bias):
+        self.bias=bias
+    def train(self,inp,err,n=0.1):
+        for outnum in range(len(self.weights)):
+            for inpnum in range(len(self.weights[outnum])):
+                self.weights[outnum][inpnum]=n*inp[inpnum]*err[outnum] #change of data
